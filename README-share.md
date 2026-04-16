@@ -1,29 +1,74 @@
-# 沈阳行程地图网页分享说明
+# 沈阳行程网页分享说明
 
-## 已生成文件
+## 当前结构
 
-- `shenyang-trip-map-share.html`
+- `index.html`
+- `trip-data.js`
+- `scripts/sync-trip-from-obsidian.mjs`
+- `assets/trip/`
 
-这是一个静态单页网页，打开时会从 CDN 加载 Leaflet，并从高德地图加载底图瓦片。
+现在这套分享页已经不是单纯地图页了，而是：
+
+- 地图总览
+- D1-D5 切换
+- 当天交通建议
+- 当天玩法与餐食标签
+- 当天照片
+- 当天详细说明
+
+网页内容来自知识库里的这份笔记：
+
+- `AI归档/沈阳五一出行安排.md`
+
+也就是说，以后这份笔记改了，网页是可以重新同步刷新的。
+
+## 如何从知识库刷新网页
+
+在仓库目录运行：
+
+```bash
+node scripts/sync-trip-from-obsidian.mjs
+```
+
+这一步会做两件事：
+
+1. 重新读取知识库里的 `AI归档/沈阳五一出行安排.md`
+2. 重新生成 `trip-data.js`，并把引用到的图片复制到 `assets/trip/`
+
+然后如果要让公网链接同步更新，再执行：
+
+```bash
+git add index.html trip-data.js scripts/sync-trip-from-obsidian.mjs assets/trip
+git commit -m "Refresh trip site from knowledge base"
+git push origin main
+```
+
+GitHub Pages 会自动刷新网页。
 
 ## 分享方式
 
-### 方式 1：直接发 HTML 文件
+### 方式 1：直接发网页链接
 
-把 `shenyang-trip-map-share.html` 发给别人即可。对方双击打开，联网后能看到地图。
+当前公开链接：
 
-优点：不用部署，不公开到网上。  
-缺点：不是一个网页链接。
+- `https://coimgrain.github.io/shenyang-trip-map/`
 
-### 方式 2：部署成网页链接
+优点：别人点开就能看。  
+缺点：这是公开链接，里面的行程信息默认也是公开可见的。
 
-可以部署到 GitHub Pages、Vercel、Netlify、Cloudflare Pages 等静态网页平台。
+### 方式 2：直接发本地网页文件
 
-优点：别人点链接就能看。  
-缺点：如果是公开部署，别人可能看到你的出行日期、地点和路线。
+如果只是临时发给少数人，也可以直接发整个仓库里的静态文件。
+
+优点：不一定非要走公网。  
+缺点：对方本地打开时，最好也用一个静态服务器方式预览，体验没有公网链接方便。
 
 ## 推荐
 
-如果只是发给旅游搭子，优先直接发 HTML 或 PNG。
+如果你想把它当“知识库的可分享前端”，现在这套 `GitHub Pages + 知识库同步脚本` 已经够用了：
 
-如果确实要公网链接，建议用 GitHub Pages，但最好确认是否接受行程信息公开。
+- 平时改知识库
+- 需要刷新网页时跑一次同步脚本
+- 再 push 到 `main`
+
+这样你不用额外部署服务器，也能保留“知识库改了，网页能跟着变”的能力。
