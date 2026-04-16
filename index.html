@@ -84,75 +84,6 @@
         linear-gradient(180deg, rgba(34, 25, 16, 0.18) 0%, rgba(34, 25, 16, 0.02) 32%, rgba(34, 25, 16, 0.12) 100%);
     }
 
-    .hero-card {
-      position: absolute;
-      top: 24px;
-      left: 24px;
-      z-index: 420;
-      width: min(480px, calc(100% - 48px));
-      padding: 22px 24px 20px;
-      color: #fff7ef;
-      background:
-        linear-gradient(135deg, rgba(37, 28, 18, 0.82), rgba(89, 58, 22, 0.68)),
-        radial-gradient(circle at top right, rgba(220, 170, 86, 0.22), transparent 42%);
-      border: 1px solid rgba(255, 239, 217, 0.18);
-      border-radius: 28px;
-      box-shadow: 0 28px 50px rgba(20, 12, 6, 0.24);
-      backdrop-filter: blur(14px);
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(255, 239, 217, 0.82);
-    }
-
-    .hero-eyebrow::before {
-      content: "";
-      width: 22px;
-      height: 1px;
-      background: currentColor;
-      opacity: 0.7;
-    }
-
-    .hero-title {
-      margin: 0;
-      font-family: "Noto Serif SC", "Songti SC", serif;
-      font-size: clamp(34px, 4vw, 48px);
-      line-height: 1.02;
-      letter-spacing: -0.03em;
-    }
-
-    .hero-summary {
-      margin: 14px 0 0;
-      max-width: 32rem;
-      font-size: 15px;
-      line-height: 1.75;
-      color: rgba(255, 243, 228, 0.88);
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .meta-pill {
-      padding: 7px 12px;
-      border: 1px solid rgba(255, 239, 217, 0.16);
-      border-radius: 999px;
-      background: rgba(255, 247, 239, 0.1);
-      font-size: 12px;
-      line-height: 1;
-      color: rgba(255, 243, 228, 0.94);
-    }
-
     .map-label {
       background: rgba(252, 248, 241, 0.94);
       border: 1px solid rgba(72, 53, 30, 0.14);
@@ -244,29 +175,12 @@
       color: var(--muted);
     }
 
-    .source-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
-      margin-bottom: 16px;
-    }
-
-    .source-pill {
-      padding: 7px 11px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.78);
-      border: 1px solid rgba(82, 60, 29, 0.08);
-      font-size: 12px;
-      color: #544736;
-    }
-
     .day-tabs {
       position: relative;
       z-index: 1;
       display: flex;
       gap: 10px;
-      padding: 4px 0 14px;
+      padding: 0 0 14px;
       overflow-x: auto;
       overflow-y: hidden;
       scrollbar-width: none;
@@ -279,11 +193,11 @@
     .day-tab {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      min-width: 108px;
-      padding: 12px 14px;
+      justify-content: center;
+      min-width: 86px;
+      padding: 11px 14px;
       border: 1px solid rgba(72, 53, 30, 0.08);
-      border-radius: 18px;
+      border-radius: 999px;
       background: rgba(255, 255, 255, 0.78);
       color: #3b2f21;
       cursor: pointer;
@@ -296,41 +210,16 @@
     }
 
     .day-tab.is-active {
-      background: rgba(255, 249, 241, 0.96);
-      border-color: color-mix(in srgb, var(--day-color) 42%, rgba(72, 53, 30, 0.08));
-      box-shadow: 0 14px 24px rgba(57, 39, 17, 0.12);
-    }
-
-    .day-tab-index {
-      display: grid;
-      place-items: center;
-      width: 28px;
-      height: 28px;
-      border-radius: 999px;
-      background: var(--day-color);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 800;
-      flex: 0 0 auto;
-    }
-
-    .day-tab-copy {
-      min-width: 0;
+      background: color-mix(in srgb, var(--day-color) 12%, rgba(255, 249, 241, 0.96));
+      border-color: color-mix(in srgb, var(--day-color) 52%, rgba(72, 53, 30, 0.08));
+      box-shadow: 0 12px 20px rgba(57, 39, 17, 0.1);
     }
 
     .day-tab-label {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
       line-height: 1.1;
-    }
-
-    .day-tab-note {
-      margin-top: 2px;
-      font-size: 12px;
-      color: #7d6b57;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      letter-spacing: 0.01em;
     }
 
     .day-content {
@@ -707,20 +596,7 @@
       }
 
       .hero-card {
-        top: 18px;
-        left: 18px;
-        right: 18px;
-        width: auto;
-        padding: 18px 18px 16px;
-        border-radius: 24px;
-      }
-
-      .hero-title {
-        font-size: clamp(28px, 8vw, 40px);
-      }
-
-      .hero-summary {
-        font-size: 14px;
+        display: none;
       }
 
       .panel-title {
@@ -728,23 +604,12 @@
       }
 
       .panel-top {
-        padding-bottom: 4px;
-      }
-
-      .panel-kicker,
-      .panel-title,
-      .panel-subtitle {
         display: none;
       }
 
-      .source-row {
-        margin-top: 2px;
-        margin-bottom: 10px;
-      }
-
       .day-tab {
-        min-width: 104px;
-        padding: 11px 12px;
+        min-width: 84px;
+        padding: 10px 12px;
       }
 
       .day-content {
@@ -757,7 +622,8 @@
       }
 
       .day-header-title {
-        font-size: clamp(24px, 7vw, 34px);
+        font-size: clamp(23px, 6vw, 31px);
+        line-height: 1.12;
       }
 
       .info-grid,
@@ -775,15 +641,27 @@
         height: min(76vh, 820px);
       }
 
-      .hero-card {
-        top: 14px;
-        left: 14px;
-        right: 14px;
-        padding: 16px 16px 15px;
+      .source-row {
+        margin-bottom: 8px;
       }
 
-      .hero-summary {
+      .day-header-top {
+        display: block;
+      }
+
+      .badge-stack {
+        margin-top: 12px;
+        justify-content: flex-start;
+      }
+
+      .day-header-summary {
         max-width: none;
+        margin-top: 10px;
+      }
+
+      .day-header-title {
+        max-width: none;
+        text-wrap: pretty;
       }
 
       .day-route {
@@ -805,23 +683,10 @@
   <div class="app-shell">
     <section class="map-stage">
       <div id="map"></div>
-      <div class="hero-card">
-        <div class="hero-eyebrow">Knowledge Synced City Guide</div>
-        <h1 class="hero-title" id="hero-title">沈阳 5 日路线册</h1>
-        <p class="hero-summary" id="hero-summary">点 D1-D5 切地图与当天攻略，抽屉里直接看路线、交通、吃什么和现场照片。</p>
-        <div class="hero-meta" id="hero-meta"></div>
-      </div>
     </section>
 
     <aside class="panel" aria-label="行程详情面板">
       <div class="panel-handle" aria-hidden="true"></div>
-      <div class="panel-top">
-        <p class="panel-kicker">五一出行 · 知识库同步版</p>
-        <h2 class="panel-title" id="panel-title">沈阳 5 日路线册</h2>
-        <p class="panel-subtitle" id="panel-subtitle">一份能边走边看的城市行程页，地图与攻略会同步切换。</p>
-        <div class="source-row" id="source-row"></div>
-      </div>
-
       <div class="day-tabs" id="day-tabs"></div>
 
       <div class="day-content">
@@ -914,28 +779,7 @@
     const panel = document.querySelector(".panel");
     const panelHandle = document.querySelector(".panel-handle");
     const dayTabs = $("day-tabs");
-    const heroMeta = $("hero-meta");
-    const sourceRow = $("source-row");
-
-    $("hero-title").textContent = data.meta.siteTitle;
-    $("hero-summary").textContent = data.meta.siteSummary;
-    $("panel-title").textContent = data.meta.panelTitle;
-    $("panel-subtitle").textContent = data.meta.panelSummary;
     $("source-card").innerHTML = `这份网页当前读取的是知识库里的 <code>${escapeHtml(data.meta.sourceNote)}</code>。以后你只要改这份笔记，再让我执行一次同步脚本，网站内容就会一起刷新。最近同步时间：<code>${escapeHtml(data.meta.generatedAt)}</code>`;
-
-    data.meta.heroPills.forEach((pill) => {
-      const span = document.createElement("span");
-      span.className = "meta-pill";
-      span.textContent = pill;
-      heroMeta.appendChild(span);
-    });
-
-    data.meta.sourcePills.forEach((pill) => {
-      const span = document.createElement("span");
-      span.className = "source-pill";
-      span.textContent = pill;
-      sourceRow.appendChild(span);
-    });
 
     function escapeHtml(text) {
       return String(text)
@@ -1265,13 +1109,8 @@
         button.type = "button";
         button.className = `day-tab${index === activeDay ? " is-active" : ""}`;
         button.style.setProperty("--day-color", day.color);
-        button.innerHTML = `
-          <span class="day-tab-index">D${day.order}</span>
-          <span class="day-tab-copy">
-            <span class="day-tab-label">${escapeHtml(day.label)}</span>
-            <span class="day-tab-note">${escapeHtml(day.shortArea)}</span>
-          </span>
-        `;
+        button.setAttribute("aria-label", `切换到 Day ${day.order}`);
+        button.innerHTML = `<span class="day-tab-label">DAY ${day.order}</span>`;
         button.addEventListener("click", () => {
           if (panelState.collapsed) snapPanel(false);
           setActiveDay(index);
