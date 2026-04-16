@@ -1042,8 +1042,11 @@
       setPanelOffset(panelState.collapsed ? panelState.collapsedOffset : 0);
     }
 
-    function snapPanel(collapsed) {
-      setPanelOffset(collapsed ? panelState.collapsedOffset : 0, collapsed);
+    function snapPanel(collapsed, resetScroll = collapsed) {
+      setPanelOffset(collapsed ? panelState.collapsedOffset : 0, resetScroll);
+      if (isMobilePanelMode() && mapLayers[activeDay]) {
+        updateMapFocus(activeDay);
+      }
     }
 
     function canDragPanel(target) {
@@ -1155,9 +1158,10 @@
 
     function getFitOptions() {
       if (isMobilePanelMode()) {
+        const overlayHeight = Math.max(getPanelPeekHeight(), panel.offsetHeight - panelState.offset);
         return {
           paddingTopLeft: [22, 22],
-          paddingBottomRight: [22, Math.max(164, panel.offsetHeight + 16)],
+          paddingBottomRight: [22, overlayHeight + 16],
           maxZoom: 14,
           duration: 0.65
         };
@@ -1229,7 +1233,14 @@
           weight: isActive ? 5 : 3,
           opacity: isActive ? 0.92 : 0.25
         });
-        layer.markers.forEach((marker) => marker.setOpacity(isActive ? 1 : 0.42));
+        layer.markers.forEach((marker) => {
+          marker.setOpacity(isActive ? 1 : 0.42);
+          const tooltipEl = marker.getTooltip()?.getElement?.();
+          if (tooltipEl) {
+            tooltipEl.style.opacity = isActive ? "1" : "0";
+            tooltipEl.style.visibility = isActive ? "visible" : "hidden";
+          }
+        });
       });
       map.flyToBounds(mapLayers[dayIndex].bounds, getFitOptions());
     }
