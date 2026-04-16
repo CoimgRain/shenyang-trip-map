@@ -383,47 +383,32 @@
       max-width: 100%;
     }
 
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+    .day-brief {
       margin-top: 18px;
     }
 
-    .info-card {
-      padding: 14px 16px 16px;
-      border-radius: 22px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 251, 246, 0.7));
-      border: 1px solid rgba(74, 55, 28, 0.08);
-      box-shadow: var(--card-shadow);
+    .brief-list {
+      display: grid;
+      gap: 14px;
     }
 
-    .info-card.full {
-      grid-column: 1 / -1;
+    .brief-item + .brief-item {
+      padding-top: 14px;
+      border-top: 1px dashed rgba(72, 53, 30, 0.12);
     }
 
-    .info-label {
-      margin: 0 0 10px;
-      font-family: "Noto Serif SC", "Songti SC", serif;
+    .brief-label {
+      margin: 0 0 8px;
       font-size: 15px;
       font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      color: #342a22;
+      color: #3d2f20;
     }
 
-    .info-card p,
-    .info-card li {
+    .brief-copy {
       margin: 0;
       font-size: 14px;
       line-height: 1.7;
       color: #342a22;
-    }
-
-    .info-card ul {
-      margin: 0;
-      padding-left: 18px;
     }
 
     .chips {
@@ -820,13 +805,18 @@
         border-radius: 24px;
       }
 
+      .day-brief .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+      }
+
       .day-header-title {
         font-size: clamp(23px, 6vw, 31px);
         line-height: 1.12;
         word-break: break-all;
       }
 
-      .info-grid,
       .gallery {
         grid-template-columns: 1fr;
       }
@@ -869,7 +859,6 @@
         font-size: 11px;
       }
 
-      .info-card,
       .section-block,
       .source-card {
         border-radius: 20px;
@@ -904,18 +893,24 @@
             </div>
           </section>
 
-          <section class="info-grid">
-            <div class="info-card">
-              <p class="info-label">交通建议</p>
-              <p id="transport-note"></p>
+          <section class="section-block day-brief">
+            <div class="section-head">
+              <h4 class="section-title">当天速览</h4>
+              <span class="section-note">交通、吃饭和玩法先看这里</span>
             </div>
-            <div class="info-card">
-              <p class="info-label">吃什么</p>
-              <div class="chips" id="food-chips"></div>
-            </div>
-            <div class="info-card full">
-              <p class="info-label">重点玩法</p>
-              <div class="chips" id="highlight-chips"></div>
+            <div class="brief-list">
+              <div class="brief-item">
+                <p class="brief-label">交通</p>
+                <p class="brief-copy" id="transport-note"></p>
+              </div>
+              <div class="brief-item">
+                <p class="brief-label">吃饭</p>
+                <div class="chips" id="food-chips"></div>
+              </div>
+              <div class="brief-item">
+                <p class="brief-label">玩法</p>
+                <div class="chips" id="highlight-chips"></div>
+              </div>
             </div>
           </section>
 
