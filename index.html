@@ -17,6 +17,7 @@
       background: #f5f1e8;
       font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
       color: #2d2a26;
+      overflow: hidden;
     }
     .layout {
       display: grid;
@@ -125,8 +126,10 @@
     @media (max-width: 820px) {
       .layout {
         display: block;
-        position: relative;
+        position: fixed;
+        inset: 0;
         height: 100dvh;
+        overflow: hidden;
       }
       #map {
         height: 100dvh;
@@ -140,6 +143,8 @@
         max-height: 39dvh;
         padding: 12px 14px calc(14px + env(safe-area-inset-bottom));
         overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
         border-left: none;
         border-top: 1px solid rgba(80, 60, 30, 0.12);
         border-radius: 18px 18px 0 0;
