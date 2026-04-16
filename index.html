@@ -13,15 +13,16 @@
   <style>
     :root {
       color-scheme: light;
-      --bg: #ebe2d3;
-      --paper: rgba(251, 246, 237, 0.94);
-      --paper-solid: #faf4ea;
+      --bg: #ebe1d2;
+      --paper: rgba(251, 247, 239, 0.92);
+      --paper-solid: #faf5ec;
       --ink: #241d16;
       --muted: #756656;
       --line: rgba(74, 55, 28, 0.12);
       --accent: #b16d22;
       --accent-soft: rgba(177, 109, 34, 0.14);
-      --shadow: 0 22px 50px rgba(49, 33, 14, 0.18);
+      --shadow: 0 24px 56px rgba(49, 33, 14, 0.18);
+      --card-shadow: 0 16px 34px rgba(53, 36, 16, 0.08);
       --panel-offset: 0px;
       --day-color: #d84f45;
     }
@@ -36,7 +37,8 @@
       height: 100%;
       overflow: hidden;
       background:
-        radial-gradient(circle at top, rgba(199, 150, 82, 0.28), transparent 28%),
+        radial-gradient(circle at top left, rgba(205, 160, 98, 0.2), transparent 24%),
+        radial-gradient(circle at top right, rgba(163, 108, 62, 0.1), transparent 18%),
         linear-gradient(180deg, #f4ede1 0%, #e7dccb 100%);
       color: var(--ink);
       font-family: "PingFang SC", "Noto Serif SC", "Hiragino Sans GB", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -69,10 +71,22 @@
       background: #d9ccb8;
     }
 
+    .map-stage::before {
+      content: "";
+      position: absolute;
+      inset: 18px 18px auto auto;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(250, 242, 229, 0.3) 0%, rgba(250, 242, 229, 0) 72%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
     #map {
       width: 100%;
       height: 100%;
-      filter: saturate(0.98) contrast(1.01);
+      filter: saturate(0.94) contrast(1.02) brightness(1.01);
     }
 
     .map-stage::after {
@@ -125,8 +139,8 @@
       padding: 24px 24px 18px;
       overflow: hidden;
       background:
-        radial-gradient(circle at top, rgba(201, 152, 86, 0.2), transparent 24%),
-        linear-gradient(180deg, rgba(252, 247, 239, 0.98) 0%, rgba(243, 234, 220, 0.98) 100%);
+        radial-gradient(circle at top, rgba(201, 152, 86, 0.16), transparent 24%),
+        linear-gradient(180deg, rgba(252, 247, 239, 0.98) 0%, rgba(244, 236, 223, 0.985) 100%);
       border-left: 1px solid rgba(84, 60, 28, 0.08);
       box-shadow: -18px 0 38px rgba(38, 25, 12, 0.08);
       backdrop-filter: blur(18px);
@@ -140,6 +154,17 @@
       border-radius: 28px;
       border: 1px solid rgba(123, 88, 44, 0.08);
       opacity: 0.6;
+    }
+
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 14%),
+        radial-gradient(circle at 20% 0%, rgba(255, 248, 239, 0.2), transparent 26%);
+      opacity: 0.9;
     }
 
     .panel-handle {
@@ -180,7 +205,7 @@
       z-index: 1;
       display: flex;
       gap: 10px;
-      padding: 0 0 14px;
+      padding: 2px 0 16px;
       overflow-x: auto;
       overflow-y: hidden;
       scrollbar-width: none;
@@ -195,24 +220,27 @@
       align-items: center;
       justify-content: center;
       min-width: 86px;
-      padding: 11px 14px;
-      border: 1px solid rgba(72, 53, 30, 0.08);
+      padding: 11px 15px;
+      border: 1px solid rgba(72, 53, 30, 0.07);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.78);
+      background: rgba(255, 255, 255, 0.72);
       color: #3b2f21;
       cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
     }
 
     .day-tab:hover {
       transform: translateY(-1px);
-      box-shadow: 0 12px 18px rgba(57, 39, 17, 0.08);
+      box-shadow: 0 10px 18px rgba(57, 39, 17, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.65);
     }
 
     .day-tab.is-active {
-      background: color-mix(in srgb, var(--day-color) 12%, rgba(255, 249, 241, 0.96));
+      background:
+        linear-gradient(180deg, color-mix(in srgb, var(--day-color) 10%, rgba(255, 252, 248, 0.98)), rgba(255, 250, 243, 0.94));
       border-color: color-mix(in srgb, var(--day-color) 52%, rgba(72, 53, 30, 0.08));
-      box-shadow: 0 12px 20px rgba(57, 39, 17, 0.1);
+      box-shadow: 0 12px 22px rgba(57, 39, 17, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+      color: color-mix(in srgb, var(--day-color) 68%, #37291c);
     }
 
     .day-tab-label {
@@ -230,6 +258,7 @@
       padding-right: 4px;
       overscroll-behavior: contain;
       scrollbar-width: thin;
+      scrollbar-color: rgba(145, 112, 68, 0.32) transparent;
     }
 
     .day-content-inner {
@@ -237,6 +266,7 @@
     }
 
     .day-header {
+      position: relative;
       padding: 20px 22px 22px;
       border-radius: 30px;
       color: #fff8f2;
@@ -244,13 +274,37 @@
         linear-gradient(145deg, color-mix(in srgb, var(--day-color) 92%, #664226 8%), color-mix(in srgb, var(--day-color) 68%, #22170d 32%)),
         radial-gradient(circle at top right, rgba(255, 255, 255, 0.22), transparent 34%);
       box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .day-header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 24%),
+        radial-gradient(circle at 0% 0%, rgba(255, 248, 240, 0.16), transparent 28%);
+      pointer-events: none;
+    }
+
+    .day-header::after {
+      content: "";
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 0;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255, 244, 230, 0.28), rgba(255, 244, 230, 0));
+      pointer-events: none;
     }
 
     .day-header-top {
+      position: relative;
+      z-index: 1;
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 16px;
+      gap: 18px;
     }
 
     .day-header-kicker {
@@ -273,11 +327,13 @@
       margin: 12px 0 0;
       max-width: 30rem;
       font-size: 15px;
-      line-height: 1.75;
+      line-height: 1.78;
       color: rgba(255, 243, 228, 0.9);
     }
 
     .day-route {
+      position: relative;
+      z-index: 1;
       margin-top: 6px;
       display: flex;
       flex-wrap: wrap;
@@ -292,10 +348,11 @@
       padding: 6px 12px;
       border-radius: 999px;
       border: 1px solid rgba(255, 241, 226, 0.18);
-      background: rgba(255, 248, 240, 0.1);
+      background: rgba(255, 248, 240, 0.11);
       font-size: 12px;
       line-height: 1.2;
       color: rgba(255, 243, 228, 0.94);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     .day-badge {
@@ -306,12 +363,13 @@
       min-height: 34px;
       padding: 6px 12px;
       border-radius: 999px;
-      background: rgba(255, 248, 240, 0.14);
+      background: rgba(255, 248, 240, 0.16);
       border: 1px solid rgba(255, 241, 226, 0.18);
       font-size: 12px;
       color: rgba(255, 243, 228, 0.96);
       line-height: 1.2;
       text-align: center;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     .badge-stack {
@@ -330,9 +388,10 @@
     .info-card {
       padding: 16px 16px 14px;
       border-radius: 22px;
-      background: rgba(255, 255, 255, 0.76);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 251, 246, 0.7));
       border: 1px solid rgba(74, 55, 28, 0.08);
-      box-shadow: 0 12px 24px rgba(52, 36, 17, 0.05);
+      box-shadow: var(--card-shadow);
     }
 
     .info-card.full {
@@ -369,21 +428,23 @@
     .chip {
       display: inline-flex;
       align-items: center;
-      padding: 7px 10px;
+      padding: 7px 11px;
       border-radius: 999px;
-      background: color-mix(in srgb, var(--day-color) 14%, #fff);
+      background: color-mix(in srgb, var(--day-color) 11%, #fff);
       border: 1px solid color-mix(in srgb, var(--day-color) 26%, rgba(74, 55, 28, 0.08));
       font-size: 12px;
       color: #49351d;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
     }
 
     .section-block {
       margin-top: 18px;
       padding: 18px;
       border-radius: 26px;
-      background: rgba(255, 255, 255, 0.8);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 251, 246, 0.74));
       border: 1px solid rgba(72, 53, 30, 0.08);
-      box-shadow: 0 14px 30px rgba(54, 37, 16, 0.06);
+      box-shadow: var(--card-shadow);
     }
 
     .section-head {
@@ -397,7 +458,7 @@
     .section-title {
       margin: 0;
       font-family: "Noto Serif SC", "Songti SC", serif;
-      font-size: 21px;
+      font-size: 20px;
       letter-spacing: -0.03em;
     }
 
@@ -443,6 +504,8 @@
       border-radius: 22px;
       background: #d8cab6;
       min-height: 154px;
+      aspect-ratio: 1 / 0.9;
+      box-shadow: 0 14px 28px rgba(47, 31, 15, 0.08);
     }
 
     .gallery-card img {
@@ -461,7 +524,7 @@
       content: "";
       position: absolute;
       inset: auto 0 0;
-      height: 48%;
+      height: 54%;
       background: linear-gradient(180deg, transparent, rgba(19, 11, 5, 0.3));
       pointer-events: none;
     }
@@ -473,6 +536,10 @@
       font-size: 12px;
       color: rgba(255, 248, 240, 0.95);
       text-shadow: 0 2px 10px rgba(12, 6, 2, 0.4);
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(34, 21, 10, 0.24);
+      backdrop-filter: blur(6px);
     }
 
     .markdown-body {
@@ -539,11 +606,47 @@
       margin-top: 18px;
       padding: 14px 16px;
       border-radius: 18px;
-      background: rgba(255, 250, 244, 0.78);
+      background: rgba(255, 250, 244, 0.72);
       border: 1px solid rgba(72, 53, 30, 0.08);
       font-size: 13px;
       line-height: 1.7;
       color: #625445;
+    }
+
+    .day-header,
+    .info-card,
+    .section-block,
+    .source-card {
+      animation: fadeLift 0.42s ease both;
+    }
+
+    @keyframes fadeLift {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .day-content-inner.is-refreshing .day-header,
+    .day-content-inner.is-refreshing .info-card,
+    .day-content-inner.is-refreshing .section-block,
+    .day-content-inner.is-refreshing .source-card {
+      animation: fadeLiftRefresh 0.34s ease both;
+    }
+
+    @keyframes fadeLiftRefresh {
+      from {
+        opacity: 0.72;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .source-card code {
@@ -599,7 +702,8 @@
         height: 5px;
         margin: 0 auto 10px;
         border-radius: 999px;
-        background: rgba(102, 82, 56, 0.34);
+        background: rgba(102, 82, 56, 0.28);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
       }
 
       .hero-card {
@@ -648,10 +752,6 @@
         height: min(76vh, 820px);
       }
 
-      .source-row {
-        margin-bottom: 8px;
-      }
-
       .day-header-top {
         display: block;
       }
@@ -680,8 +780,10 @@
         font-size: 11px;
       }
 
-      .source-pill {
-        font-size: 11px;
+      .info-card,
+      .section-block,
+      .source-card {
+        border-radius: 20px;
       }
     }
   </style>
@@ -786,6 +888,7 @@
     const panel = document.querySelector(".panel");
     const panelHandle = document.querySelector(".panel-handle");
     const dayTabs = $("day-tabs");
+    const dayContentInner = document.querySelector(".day-content-inner");
     $("source-card").innerHTML = `这份网页当前读取的是知识库里的 <code>${escapeHtml(data.meta.sourceNote)}</code>。以后你只要改这份笔记，再让我执行一次同步脚本，网站内容就会一起刷新。最近同步时间：<code>${escapeHtml(data.meta.generatedAt)}</code>`;
 
     function escapeHtml(text) {
@@ -1058,6 +1161,17 @@
     }
 
     let activeDay = 0;
+    let refreshMotionTimer = null;
+
+    function replayContentMotion() {
+      dayContentInner.classList.remove("is-refreshing");
+      void dayContentInner.offsetWidth;
+      dayContentInner.classList.add("is-refreshing");
+      window.clearTimeout(refreshMotionTimer);
+      refreshMotionTimer = window.setTimeout(() => {
+        dayContentInner.classList.remove("is-refreshing");
+      }, 380);
+    }
 
     function renderChips(container, items) {
       container.innerHTML = "";
@@ -1154,6 +1268,7 @@
       renderGallery(day);
       renderDayTabs();
       updateMapFocus(dayIndex);
+      replayContentMotion();
       dayTabs.children[dayIndex]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     }
 
