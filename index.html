@@ -1087,6 +1087,15 @@
     panel.addEventListener("pointerup", endPanelDrag);
     panel.addEventListener("pointercancel", endPanelDrag);
     panelHandle.addEventListener("click", () => snapPanel(!panelState.collapsed));
+    map.on("click", () => {
+      if (!isMobilePanelMode() || panelState.collapsed || panelState.dragging) return;
+      snapPanel(true);
+    });
+    panel.addEventListener("click", (event) => {
+      if (!isMobilePanelMode() || !panelState.collapsed || panelState.dragging) return;
+      if (event.target.closest("a")) return;
+      snapPanel(false);
+    });
     window.addEventListener("resize", updatePanelMetrics);
 
     function iconHtml(color, num) {
