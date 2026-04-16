@@ -62,6 +62,23 @@
       background: rgba(255,255,255,0.72);
       border-radius: 14px;
       border: 1px solid rgba(80,60,30,0.08);
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      touch-action: manipulation;
+    }
+    .day:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(64, 43, 15, 0.08);
+    }
+    .day:focus-visible {
+      outline: 2px solid rgba(164, 101, 26, 0.45);
+      outline-offset: 2px;
+    }
+    .day.active {
+      background: rgba(255,255,255,0.96);
+      border-color: rgba(164, 101, 26, 0.36);
+      box-shadow: 0 10px 24px rgba(86, 58, 18, 0.12);
+      transform: translateY(-1px);
     }
     .day-head {
       display: flex;
@@ -223,7 +240,7 @@
       <p class="tip">这张图更适合现场看区域和顺路关系，不是导航图。早市和街区点位里有少数使用的是片区示意坐标，够用来规划动线。</p>
 
       <div class="days-strip">
-        <section class="day">
+        <section class="day" data-day-index="0" tabindex="0" role="button" aria-label="跳转到 Day 1 路线">
           <div class="day-head"><span class="swatch" style="background:#d84f45"></span>Day 1</div>
           <ul>
             <li>中山广场</li>
@@ -232,7 +249,7 @@
           </ul>
         </section>
 
-        <section class="day">
+        <section class="day" data-day-index="1" tabindex="0" role="button" aria-label="跳转到 Day 2 路线">
           <div class="day-head"><span class="swatch" style="background:#e08a1e"></span>Day 2</div>
           <ul>
             <li>小河沿早市</li>
@@ -243,7 +260,7 @@
           </ul>
         </section>
 
-        <section class="day">
+        <section class="day" data-day-index="2" tabindex="0" role="button" aria-label="跳转到 Day 3 路线">
           <div class="day-head"><span class="swatch" style="background:#2f9e62"></span>Day 3</div>
           <ul>
             <li>八一早市</li>
@@ -253,7 +270,7 @@
           </ul>
         </section>
 
-        <section class="day">
+        <section class="day" data-day-index="3" tabindex="0" role="button" aria-label="跳转到 Day 4 路线">
           <div class="day-head"><span class="swatch" style="background:#3478c8"></span>Day 4</div>
           <ul>
             <li>向工早市</li>
@@ -263,7 +280,7 @@
           </ul>
         </section>
 
-        <section class="day">
+        <section class="day" data-day-index="4" tabindex="0" role="button" aria-label="跳转到 Day 5 路线">
           <div class="day-head"><span class="swatch" style="background:#8a53c6"></span>Day 5</div>
           <ul>
             <li>太原街</li>
@@ -354,6 +371,7 @@
     ];
 
     const bounds = [];
+    const dayCards = Array.from(document.querySelectorAll('.day'));
 
     const PI = Math.PI;
     const A = 6378245.0;
@@ -422,6 +440,8 @@
         return latlng;
       });
 
+      day.latlngs = latlngs;
+
       L.polyline(latlngs, {
         color: day.color,
         weight: 4,
@@ -431,7 +451,62 @@
       }).addTo(map);
     });
 
-    map.fitBounds(bounds, { padding: [40, 40] });
+    function getDayViewOptions() {
+      if (window.matchMedia('(max-width: 820px)').matches) {
+        const panel = document.querySelector('.panel');
+        const panelHeight = panel ? panel.offsetHeight : 0;
+        return {
+          paddingTopLeft: [24, 24],
+          paddingBottomRight: [24, Math.max(150, panelHeight + 28)],
+          duration: 0.65,
+          maxZoom: 14
+        };
+      }
+
+      return {
+        paddingTopLeft: [48, 48],
+        paddingBottomRight: [48, 48],
+        duration: 0.65,
+        maxZoom: 14
+      };
+    }
+
+    function setActiveDay(dayIndex) {
+      dayCards.forEach((card, index) => {
+        const isActive = index === dayIndex;
+        card.classList.toggle('active', isActive);
+        card.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+    }
+
+    function focusDay(dayIndex) {
+      const day = days[dayIndex];
+      if (!day || !day.latlngs || day.latlngs.length === 0) {
+        return;
+      }
+
+      const dayBounds = L.latLngBounds(day.latlngs);
+      map.flyToBounds(dayBounds, getDayViewOptions());
+      setActiveDay(dayIndex);
+      dayCards[dayIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+
+    dayCards.forEach((card) => {
+      const dayIndex = Number(card.dataset.dayIndex);
+
+      card.addEventListener('click', () => {
+        focusDay(dayIndex);
+      });
+
+      card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          focusDay(dayIndex);
+        }
+      });
+    });
+
+    map.fitBounds(bounds, getDayViewOptions());
   </script>
 </body>
 </html>
