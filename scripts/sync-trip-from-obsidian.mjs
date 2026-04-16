@@ -28,11 +28,11 @@ const dayMeta = [
     ],
     highlights: ["老建筑慢逛", "第一顿别吃太重", "西塔夜饭主场", "拍城市气质而不是网红打卡"],
     food: [
-      { label: "西塔冷面", name: "西塔大冷面（市府大路店）", area: "西塔 / 市府大路", url: "https://ditu.amap.com/place/B00180BQQU" },
-      { label: "西塔烤肉", name: "青瓦餐厅·生鱼片·烤肉（西塔店）", area: "西塔", url: "https://you.ctrip.com/food/shenyang155/5381548-dianping.html" },
-      { label: "参鸡汤", name: "长寿参鸡汤（西塔店）", area: "西塔 / 珲春路", url: "https://you.ctrip.com/food/ctripyouyoustar155/10382871.html" },
-      { label: "老式拌饭", name: "松兰味·西塔店", area: "西塔 / 安图街", url: "https://ditu.amap.com/place/B0FFFA9A2I" },
-      { label: "韩式炸鸡", name: "步乐满饭店", area: "西塔街", url: "https://www.amap.com/search?query=%E6%AD%A5%E4%B9%90%E6%BB%A1%E9%A5%AD%E5%BA%97%20%E6%B2%88%E9%98%B3%20%E8%A5%BF%E5%A1%94" }
+      { label: "西塔冷面", name: "西塔大冷面（市府大路店）", area: "西塔 / 市府大路", url: xhsSearchUrl("沈阳 西塔大冷面 市府大路店") },
+      { label: "西塔烤肉", name: "青瓦餐厅·生鱼片·烤肉（西塔店）", area: "西塔", url: xhsSearchUrl("沈阳 青瓦餐厅 西塔店") },
+      { label: "参鸡汤", name: "长寿参鸡汤（西塔店）", area: "西塔 / 珲春路", url: xhsSearchUrl("沈阳 长寿参鸡汤 西塔店") },
+      { label: "老式拌饭", name: "松兰味·西塔店", area: "西塔 / 安图街", url: xhsSearchUrl("沈阳 松兰味 西塔店") },
+      { label: "韩式炸鸡", name: "步乐满饭店", area: "西塔街", url: xhsSearchUrl("沈阳 步乐满饭店 西塔") }
     ],
     points: [
       { name: "中山广场", lat: 41.7944883, lon: 123.4044591 },
@@ -66,11 +66,11 @@ const dayMeta = [
     ],
     highlights: ["小河沿早点到", "九一八优先级很高", "故宫半天足够", "中街改成 citywalk 玩法"],
     food: [
-      { label: "早市包子", name: "小河沿早市早点摊区", area: "小河沿早市", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20%E5%B0%8F%E6%B2%B3%E6%B2%BF%E6%97%A9%E5%B8%82" },
-      { label: "冰花煎饺", name: "老边饺子馆（中街店）", area: "中街", url: "https://gs.ctrip.com/html5/you/foods/fooddetail/1/4926004.html" },
-      { label: "鸡架抻面", name: "老四季抻面馆（总店）", area: "十三纬路 / 沈河", url: "https://m.918canyin.com/qiye/lsjcmg.html" },
-      { label: "熏肉大饼", name: "李连贵熏肉大饼总店", area: "中街", url: "https://www.csair.com/h5/cn/tourism_strategy/guonei_lvyougonglve/Shenyang2/1c32lh9s91cn2.shtml" },
-      { label: "四绝东北菜", name: "宝发园名菜馆", area: "大东 / 小什字街", url: "https://lzhbwg.mofcom.gov.cn/edi_ecms_web_front/thb/detail/ef9fb809001c4a63838365445ec269cf" }
+      { label: "早市包子", name: "小河沿早市早点摊区", area: "小河沿早市", url: xhsSearchUrl("沈阳 小河沿早市 包子") },
+      { label: "冰花煎饺", name: "老边饺子馆（中街店）", area: "中街", url: xhsSearchUrl("沈阳 老边饺子馆 中街店") },
+      { label: "鸡架抻面", name: "老四季抻面馆（总店）", area: "十三纬路 / 沈河", url: xhsSearchUrl("沈阳 老四季抻面馆 总店") },
+      { label: "熏肉大饼", name: "李连贵熏肉大饼总店", area: "中街", url: xhsSearchUrl("沈阳 李连贵熏肉大饼 总店") },
+      { label: "四绝东北菜", name: "宝发园名菜馆", area: "大东 / 小什字街", url: xhsSearchUrl("沈阳 宝发园名菜馆") }
     ],
     points: [
       { name: "小河沿早市", lat: 41.7896, lon: 123.4695 },
@@ -104,11 +104,11 @@ const dayMeta = [
     ],
     highlights: ["八一早市更本地", "北陵拿来缓冲体力", "北市场比热闹夜市更适合你们", "晚饭可西塔二刷"],
     food: [
-      { label: "早市熟食", name: "八一早市熟食 / 面点摊区", area: "八一早市", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20%E5%85%AB%E4%B8%80%E6%97%A9%E5%B8%82" },
-      { label: "清真烧麦", name: "马家烧麦馆（长江街店）", area: "北陵 / 北行", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20%E9%A9%AC%E5%AE%B6%E7%83%A7%E9%BA%A6%E9%A6%86%20%E9%95%BF%E6%B1%9F%E8%A1%97%E5%BA%97" },
-      { label: "鸡架抻面", name: "盛京老四季抻面馆（九部店）", area: "宁山东路 / 北陵南侧", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20%E7%9B%9B%E4%BA%AC%E8%80%81%E5%9B%9B%E5%AD%A3%E6%8A%BB%E9%9D%A2%E9%A6%86%20%E4%B9%9D%E9%83%A8%E5%BA%97" },
-      { label: "老北鸡架", name: "真有贺·沈阳鸡架城", area: "老北市 / 皇寺路", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20%E7%9C%9F%E6%9C%89%E8%B4%BA%20%E6%B2%88%E9%98%B3%E9%B8%A1%E6%9E%B6%E5%9F%8E" },
-      { label: "回民蒸饺", name: "三盛轩回民饺子馆", area: "老城 / 沈河", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20%E4%B8%89%E7%9B%9B%E8%BD%A9%E5%9B%9E%E6%B0%91%E9%A5%BA%E5%AD%90%E9%A6%86" }
+      { label: "早市熟食", name: "八一早市熟食 / 面点摊区", area: "八一早市", url: xhsSearchUrl("沈阳 八一早市 熟食 面点") },
+      { label: "清真烧麦", name: "马家烧麦馆（长江街店）", area: "北陵 / 北行", url: xhsSearchUrl("沈阳 马家烧麦馆 长江街店") },
+      { label: "鸡架抻面", name: "盛京老四季抻面馆（九部店）", area: "宁山东路 / 北陵南侧", url: xhsSearchUrl("沈阳 盛京老四季抻面馆 九部店") },
+      { label: "老北鸡架", name: "真有贺·沈阳鸡架城", area: "老北市 / 皇寺路", url: xhsSearchUrl("沈阳 真有贺 鸡架城") },
+      { label: "回民蒸饺", name: "三盛轩回民饺子馆", area: "老城 / 沈河", url: xhsSearchUrl("沈阳 三盛轩回民饺子馆") }
     ],
     points: [
       { name: "八一早市", lat: 41.8022, lon: 123.4088 },
@@ -140,11 +140,11 @@ const dayMeta = [
     ],
     highlights: ["1905 比传统景点更适合你们", "工业博物馆和红梅二选一", "铁西线别塞太满", "夜市重在热闹收尾"],
     food: [
-      { label: "向工早餐", name: "向工早市摊区", area: "向工街", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20%E5%90%91%E5%B7%A5%E6%97%A9%E5%B8%82" },
-      { label: "锅包肉", name: "群乐饭店", area: "铁西 / 兴工街", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20%E7%BE%A4%E4%B9%90%E9%A5%AD%E5%BA%97%20%E9%93%81%E8%A5%BF" },
-      { label: "泥炉烤肉", name: "千里马烧烤（贵和街 / 小六路一带）", area: "铁西广场附近", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20%E5%8D%83%E9%87%8C%E9%A9%AC%E7%83%A7%E7%83%A4%20%E8%B4%B5%E5%92%8C%E8%A1%97%20%E5%B0%8F%E5%85%AD%E8%B7%AF" },
-      { label: "夜市大串", name: "527纯手工牛羊肉大串", area: "兴顺夜市", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20527%E7%BA%AF%E6%89%8B%E5%B7%A5%E7%89%9B%E7%BE%8A%E8%82%89%E5%A4%A7%E4%B8%B2%20%E5%85%B4%E9%A1%BA%E5%A4%9C%E5%B8%82" },
-      { label: "雪绵豆沙", name: "徐老太太雪绵豆沙", area: "兴顺夜市", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20%E5%BE%90%E8%80%81%E5%A4%AA%E5%A4%AA%E9%9B%AA%E7%BB%B5%E8%B1%86%E6%B2%99%20%E5%85%B4%E9%A1%BA%E5%A4%9C%E5%B8%82" }
+      { label: "向工早餐", name: "向工早市摊区", area: "向工街", url: xhsSearchUrl("沈阳 向工早市 早餐") },
+      { label: "锅包肉", name: "群乐饭店", area: "铁西 / 兴工街", url: xhsSearchUrl("沈阳 群乐饭店 铁西") },
+      { label: "泥炉烤肉", name: "千里马烧烤（贵和街 / 小六路一带）", area: "铁西广场附近", url: xhsSearchUrl("沈阳 千里马烧烤 贵和街 小六路") },
+      { label: "夜市大串", name: "527纯手工牛羊肉大串", area: "兴顺夜市", url: xhsSearchUrl("沈阳 527纯手工牛羊肉大串 兴顺夜市") },
+      { label: "雪绵豆沙", name: "徐老太太雪绵豆沙", area: "兴顺夜市", url: xhsSearchUrl("沈阳 徐老太太雪绵豆沙 兴顺夜市") }
     ],
     points: [
       { name: "向工早市", lat: 41.8015, lon: 123.365 },
@@ -177,11 +177,11 @@ const dayMeta = [
     ],
     highlights: ["不再开新地图", "补最喜欢的一处就够", "太原街适合收尾午饭", "返程留余量"],
     food: [
-      { label: "太原烧麦", name: "马家烧麦馆（太原北街店）", area: "太原街", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20%E9%A9%AC%E5%AE%B6%E7%83%A7%E9%BA%A6%E9%A6%86%20%E5%A4%AA%E5%8E%9F%E5%8C%97%E8%A1%97%E5%BA%97" },
-      { label: "俄式西餐", name: "欧罗巴（太原街店）", area: "太原街", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20%E6%AC%A7%E7%BD%97%E5%B7%B4%20%E5%A4%AA%E5%8E%9F%E8%A1%97%E5%BA%97" },
-      { label: "石榴异域", name: "石榴餐厅", area: "中山路欧风街", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20%E7%9F%B3%E6%A6%B4%E9%A4%90%E5%8E%85%20%E4%B8%AD%E5%B1%B1%E8%B7%AF" },
-      { label: "德式猪肘", name: "卡尼爷爷烤肉餐厅", area: "中山路欧风街", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20%E5%8D%A1%E5%B0%BC%E7%88%B7%E7%88%B7%20%E4%B8%AD%E5%B1%B1%E8%B7%AF" },
-      { label: "收尾大饼", name: "李连贵熏肉大饼", area: "太原街 / 返程补漏", url: "https://www.amap.com/search?query=%E6%B2%88%E9%98%B3%20%E6%9D%8E%E8%BF%9E%E8%B4%B5%E7%86%8F%E8%82%89%E5%A4%A7%E9%A5%BC%20%E5%A4%AA%E5%8E%9F%E8%A1%97" }
+      { label: "太原烧麦", name: "马家烧麦馆（太原北街店）", area: "太原街", url: xhsSearchUrl("沈阳 马家烧麦馆 太原北街店") },
+      { label: "俄式西餐", name: "欧罗巴（太原街店）", area: "太原街", url: xhsSearchUrl("沈阳 欧罗巴 太原街店") },
+      { label: "石榴异域", name: "石榴餐厅", area: "中山路欧风街", url: xhsSearchUrl("沈阳 石榴餐厅 中山路") },
+      { label: "德式猪肘", name: "卡尼爷爷烤肉餐厅", area: "中山路欧风街", url: xhsSearchUrl("沈阳 卡尼爷爷 中山路") },
+      { label: "收尾大饼", name: "李连贵熏肉大饼", area: "太原街 / 返程补漏", url: xhsSearchUrl("沈阳 李连贵熏肉大饼 太原街") }
     ],
     points: [
       { name: "太原街", lat: 41.7917407, lon: 123.3964233 },
@@ -212,6 +212,10 @@ const photoCaptionMap = {
   "shenyang-bajing-photo-2.webp": "八经咖啡小巷路段",
   "shenyang-bajing-photo-3.webp": "八经片区氛围"
 };
+
+function xhsSearchUrl(keyword) {
+  return `https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(keyword)}&source=web_explore_feed`;
+}
 
 function sliceDaySection(markdown, order) {
   const pattern = new RegExp(`^##\\s+Day\\s+${order}(?:[｜|].*)?$`, "m");
