@@ -1198,8 +1198,12 @@
     panel.addEventListener("pointercancel", endPanelDrag);
     panelHandle.addEventListener("click", () => snapPanel(!panelState.collapsed));
     map.on("click", () => {
-      if (!isMobilePanelMode() || panelState.collapsed || panelState.dragging) return;
-      snapPanel(true);
+      if (panelState.dragging) return;
+      mapOverviewMode = true;
+      updateMapFocus(activeDay);
+      if (isMobilePanelMode() && !panelState.collapsed) {
+        snapPanel(true);
+      }
     });
     panel.addEventListener("click", (event) => {
       if (!isMobilePanelMode() || !panelState.collapsed || panelState.dragging) return;
@@ -1285,6 +1289,29 @@
       focusRetryTimers = [];
     }
 
+    function focusAllBounds() {
+      clearFocusRetryTimers();
+
+      const bounds = L.latLngBounds(allBounds);
+      const runFocus = () => {
+        map.stop();
+        map.invalidateSize({ pan: false });
+        map.flyToBounds(bounds, {
+          ...getFitOptions(),
+          animate: true,
+          duration: 0.45
+        });
+      };
+
+      window.requestAnimationFrame(() => {
+        runFocus();
+        [90, 220, 420].forEach((delay) => {
+          const timer = window.setTimeout(runFocus, delay);
+          focusRetryTimers.push(timer);
+        });
+      });
+    }
+
     function focusDayBounds(dayIndex) {
       const layer = mapLayers[dayIndex];
       if (!layer) return;
@@ -1294,7 +1321,11 @@
       const runFocus = () => {
         map.stop();
         map.invalidateSize({ pan: false });
-        map.fitBounds(layer.bounds, getFitOptions());
+        map.flyToBounds(layer.bounds, {
+          ...getFitOptions(),
+          animate: true,
+          duration: 0.45
+        });
       };
 
       window.requestAnimationFrame(() => {
@@ -1307,6 +1338,7 @@
     }
 
     let activeDay = 0;
+    let mapOverviewMode = false;
     let refreshMotionTimer = null;
 
     function replayContentMotion() {
@@ -1389,7 +1421,7 @@
 
     function updateMapFocus(dayIndex) {
       mapLayers.forEach((layer, index) => {
-        const isActive = index === dayIndex;
+        const isActive = mapOverviewMode || index === dayIndex;
         const leafletLayers = [layer.polyline, ...layer.markers];
 
         leafletLayers.forEach((leafletLayer) => {
@@ -1411,7 +1443,12 @@
           });
         }
       });
-      focusDayBounds(dayIndex);
+
+      if (mapOverviewMode) {
+        focusAllBounds();
+      } else {
+        focusDayBounds(dayIndex);
+      }
     }
 
     function renderDayTabs() {
@@ -1424,8 +1461,10 @@
         button.setAttribute("aria-label", `切换到 Day ${day.order}`);
         button.innerHTML = `<span class="day-tab-label">DAY ${day.order}</span>`;
         button.addEventListener("click", () => {
+          mapOverviewMode = false;
           if (panelState.collapsed) {
             if (index === activeDay) {
+              updateMapFocus(index);
               snapPanel(false);
             } else {
               setActiveDay(index);
@@ -1440,6 +1479,7 @@
 
     function setActiveDay(dayIndex) {
       activeDay = dayIndex;
+      mapOverviewMode = false;
       const day = data.days[dayIndex];
       document.documentElement.style.setProperty("--day-color", day.color);
 
@@ -1472,7 +1512,7 @@
     }
 
     updatePanelMetrics();
-    map.fitBounds(L.latLngBounds(allBounds), getFitOptions());
+    focusAllBounds();
     setActiveDay(0);
   </script>
 </body>
