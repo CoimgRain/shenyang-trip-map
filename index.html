@@ -1278,13 +1278,31 @@
       };
     }
 
+    let focusRetryTimers = [];
+
+    function clearFocusRetryTimers() {
+      focusRetryTimers.forEach((timer) => window.clearTimeout(timer));
+      focusRetryTimers = [];
+    }
+
     function focusDayBounds(dayIndex) {
       const layer = mapLayers[dayIndex];
       if (!layer) return;
-      window.requestAnimationFrame(() => {
+
+      clearFocusRetryTimers();
+
+      const runFocus = () => {
         map.stop();
         map.invalidateSize({ pan: false });
         map.fitBounds(layer.bounds, getFitOptions());
+      };
+
+      window.requestAnimationFrame(() => {
+        runFocus();
+        [90, 220, 420].forEach((delay) => {
+          const timer = window.setTimeout(runFocus, delay);
+          focusRetryTimers.push(timer);
+        });
       });
     }
 
@@ -1447,6 +1465,7 @@
       renderTransit(day.transit);
       renderGallery(day);
       renderDayTabs();
+      updatePanelMetrics();
       updateMapFocus(dayIndex);
       replayContentMotion();
       dayTabs.children[dayIndex]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
