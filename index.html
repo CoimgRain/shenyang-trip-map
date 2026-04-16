@@ -1093,6 +1093,8 @@
     });
     panel.addEventListener("click", (event) => {
       if (!isMobilePanelMode() || !panelState.collapsed || panelState.dragging) return;
+      if (event.target.closest(".day-tab")) return;
+      if (event.target.closest(".day-tabs")) return;
       if (event.target.closest("a")) return;
       snapPanel(false);
     });
@@ -1242,7 +1244,14 @@
         button.setAttribute("aria-label", `切换到 Day ${day.order}`);
         button.innerHTML = `<span class="day-tab-label">DAY ${day.order}</span>`;
         button.addEventListener("click", () => {
-          if (panelState.collapsed) snapPanel(false);
+          if (panelState.collapsed) {
+            if (index === activeDay) {
+              snapPanel(false);
+            } else {
+              setActiveDay(index);
+            }
+            return;
+          }
           setActiveDay(index);
         });
         dayTabs.appendChild(button);
