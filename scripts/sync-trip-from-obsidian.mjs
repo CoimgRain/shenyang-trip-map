@@ -28,11 +28,11 @@ const dayMeta = [
     ],
     highlights: ["老建筑慢逛", "第一顿别吃太重", "西塔夜饭主场", "拍城市气质而不是网红打卡"],
     food: [
-      { label: "西塔冷面", name: "西塔大冷面（市府大路店）", area: "西塔 / 市府大路", url: xhsSearchUrl("沈阳 西塔大冷面 市府大路店") },
-      { label: "西塔烤肉", name: "青瓦餐厅·生鱼片·烤肉（西塔店）", area: "西塔", url: xhsSearchUrl("沈阳 青瓦餐厅 西塔店") },
-      { label: "参鸡汤", name: "长寿参鸡汤（西塔店）", area: "西塔 / 珲春路", url: xhsSearchUrl("沈阳 长寿参鸡汤 西塔店") },
-      { label: "老式拌饭", name: "松兰味·西塔店", area: "西塔 / 安图街", url: xhsSearchUrl("沈阳 松兰味 西塔店") },
-      { label: "韩式炸鸡", name: "步乐满饭店", area: "西塔街", url: xhsSearchUrl("沈阳 步乐满饭店 西塔") }
+      { label: "西塔冷面", name: "西塔大冷面（市府大路店）", area: "西塔 / 市府大路", url: "https://tw.trip.com/restaurant/china/shenyang/detail/west-tower-cold-noodles-xita-11531945" },
+      { label: "西塔烤肉", name: "青瓦餐厅·生鱼片·烤肉（西塔店）", area: "西塔", url: "https://m.dianping.com/shop/563753" },
+      { label: "参鸡汤", name: "长寿参鸡汤（西塔店）", area: "西塔 / 珲春路", url: "https://m.dianping.com/shop/4109077" },
+      { label: "老式拌饭", name: "松兰味·西塔店", area: "西塔 / 安图街", url: "https://m.dianping.com/shop/22440276" },
+      { label: "韩式炸鸡", name: "步乐满饭店", area: "西塔街", url: "https://m.dianping.com/shop/2345278" }
     ],
     points: [
       { name: "中山广场", lat: 41.7944883, lon: 123.4044591 },
@@ -66,11 +66,11 @@ const dayMeta = [
     ],
     highlights: ["小河沿早点到", "九一八优先级很高", "故宫半天足够", "中街改成 citywalk 玩法"],
     food: [
-      { label: "早市包子", name: "小河沿早市早点摊区", area: "小河沿早市", url: xhsSearchUrl("沈阳 小河沿早市 包子") },
-      { label: "冰花煎饺", name: "老边饺子馆（中街店）", area: "中街", url: xhsSearchUrl("沈阳 老边饺子馆 中街店") },
-      { label: "鸡架抻面", name: "老四季抻面馆（总店）", area: "十三纬路 / 沈河", url: xhsSearchUrl("沈阳 老四季抻面馆 总店") },
-      { label: "熏肉大饼", name: "李连贵熏肉大饼总店", area: "中街", url: xhsSearchUrl("沈阳 李连贵熏肉大饼 总店") },
-      { label: "四绝东北菜", name: "宝发园名菜馆", area: "大东 / 小什字街", url: xhsSearchUrl("沈阳 宝发园名菜馆") }
+      { label: "早市包子", name: "小河沿早市早点摊区", area: "小河沿早市", url: "https://tw.trip.com/moments/detail/shenyang-155-127506793/" },
+      { label: "冰花煎饺", name: "老边饺子馆（中街店）", area: "中街", url: "https://m.dianping.com/shop/551481" },
+      { label: "鸡架抻面", name: "老四季抻面馆（总店）", area: "十三纬路 / 沈河", url: "https://tw.trip.com/restaurant/china/shenyang/detail/LSJ-33323890/" },
+      { label: "熏肉大饼", name: "李连贵熏肉大饼总店", area: "中街", url: "https://jp.trip.com/restaurant/china/shenyang/detail/Li%20Lian%20Gui%20Xun%20Rou%20Da%20Bing%20Dian%20%28ShenHe%29-11531947/" },
+      { label: "四绝东北菜", name: "宝发园名菜馆", area: "大东 / 小什字街", url: "https://m.dianping.com/shop/551725" }
     ],
     points: [
       { name: "小河沿早市", lat: 41.7896, lon: 123.4695 },
@@ -104,11 +104,11 @@ const dayMeta = [
     ],
     highlights: ["八一早市更本地", "北陵拿来缓冲体力", "北市场比热闹夜市更适合你们", "晚饭可西塔二刷"],
     food: [
-      { label: "早市熟食", name: "八一早市熟食 / 面点摊区", area: "八一早市", url: xhsSearchUrl("沈阳 八一早市 熟食 面点") },
-      { label: "清真烧麦", name: "马家烧麦馆（长江街店）", area: "北陵 / 北行", url: xhsSearchUrl("沈阳 马家烧麦馆 长江街店") },
-      { label: "鸡架抻面", name: "盛京老四季抻面馆（九部店）", area: "宁山东路 / 北陵南侧", url: xhsSearchUrl("沈阳 盛京老四季抻面馆 九部店") },
-      { label: "老北鸡架", name: "真有贺·沈阳鸡架城", area: "老北市 / 皇寺路", url: xhsSearchUrl("沈阳 真有贺 鸡架城") },
-      { label: "回民蒸饺", name: "三盛轩回民饺子馆", area: "老城 / 沈河", url: xhsSearchUrl("沈阳 三盛轩回民饺子馆") }
+      { label: "早市熟食", name: "八一早市熟食 / 面点摊区", area: "八一早市", url: "https://sg.trip.com/moments/detail/shenyang-155-142530634/" },
+      { label: "清真烧麦", name: "马家烧麦馆（长江街店）", area: "北陵 / 北行", url: "https://m.tuniu.com/restaurant/2045573/" },
+      { label: "鸡架抻面", name: "盛京老四季抻面馆（九部店）", area: "宁山东路 / 北陵南侧", url: "https://tw.trip.com/restaurant/china/shenyang/detail/LSJ-33323890/" },
+      { label: "老北鸡架", name: "真有贺·沈阳鸡架城", area: "老北市 / 皇寺路", url: "https://sg.trip.com/moments/detail/shenyang-155-142530634/" },
+      { label: "回民蒸饺", name: "三盛轩回民饺子馆", area: "老城 / 沈河", url: "https://tw.trip.com/restaurant/china/shenyang/detail/San%20Sheng%20Xuan%20HuiMin%20JiaoZi-404527/" }
     ],
     points: [
       { name: "八一早市", lat: 41.8022, lon: 123.4088 },
@@ -140,11 +140,11 @@ const dayMeta = [
     ],
     highlights: ["1905 比传统景点更适合你们", "工业博物馆和红梅二选一", "铁西线别塞太满", "夜市重在热闹收尾"],
     food: [
-      { label: "向工早餐", name: "向工早市摊区", area: "向工街", url: xhsSearchUrl("沈阳 向工早市 早餐") },
-      { label: "锅包肉", name: "群乐饭店", area: "铁西 / 兴工街", url: xhsSearchUrl("沈阳 群乐饭店 铁西") },
-      { label: "泥炉烤肉", name: "千里马烧烤（贵和街 / 小六路一带）", area: "铁西广场附近", url: xhsSearchUrl("沈阳 千里马烧烤 贵和街 小六路") },
-      { label: "夜市大串", name: "527纯手工牛羊肉大串", area: "兴顺夜市", url: xhsSearchUrl("沈阳 527纯手工牛羊肉大串 兴顺夜市") },
-      { label: "雪绵豆沙", name: "徐老太太雪绵豆沙", area: "兴顺夜市", url: xhsSearchUrl("沈阳 徐老太太雪绵豆沙 兴顺夜市") }
+      { label: "向工早餐", name: "向工早市摊区", area: "向工街", url: "https://tw.trip.com/moments/theme/poi-zhongjie-street-99832-restaurant-993134/" },
+      { label: "锅包肉", name: "群乐饭店", area: "铁西 / 兴工街", url: "https://tw.trip.com/restaurant/china/shenyang/detail/qunle-restaurant-399548/" },
+      { label: "泥炉烤肉", name: "千里马烧烤（贵和街 / 小六路一带）", area: "铁西广场附近", url: "https://tw.trip.com/restaurant/china/shenyang/detail/qianlima-barbecue-xiaoliuluyi-11535186" },
+      { label: "夜市大串", name: "527纯手工牛羊肉大串", area: "兴顺夜市", url: "https://ln.cri.cn/2024-03-28/a046e76f-b201-a039-877a-b9bebec96f48.html" },
+      { label: "雪绵豆沙", name: "徐老太太雪绵豆沙", area: "兴顺夜市", url: "https://ln.cri.cn/2024-03-28/a046e76f-b201-a039-877a-b9bebec96f48.html" }
     ],
     points: [
       { name: "向工早市", lat: 41.8015, lon: 123.365 },
@@ -177,11 +177,11 @@ const dayMeta = [
     ],
     highlights: ["不再开新地图", "补最喜欢的一处就够", "太原街适合收尾午饭", "返程留余量"],
     food: [
-      { label: "太原烧麦", name: "马家烧麦馆（太原北街店）", area: "太原街", url: xhsSearchUrl("沈阳 马家烧麦馆 太原北街店") },
-      { label: "俄式西餐", name: "欧罗巴（太原街店）", area: "太原街", url: xhsSearchUrl("沈阳 欧罗巴 太原街店") },
-      { label: "石榴异域", name: "石榴餐厅", area: "中山路欧风街", url: xhsSearchUrl("沈阳 石榴餐厅 中山路") },
-      { label: "德式猪肘", name: "卡尼爷爷烤肉餐厅", area: "中山路欧风街", url: xhsSearchUrl("沈阳 卡尼爷爷 中山路") },
-      { label: "收尾大饼", name: "李连贵熏肉大饼", area: "太原街 / 返程补漏", url: xhsSearchUrl("沈阳 李连贵熏肉大饼 太原街") }
+      { label: "太原烧麦", name: "马家烧麦馆（太原北街店）", area: "太原街", url: "https://tw.trip.com/restaurant/china/shenyang/detail/majia-shaomai-guan-taiyuan-north-street-387346/" },
+      { label: "俄式西餐", name: "欧罗巴（太原街店）", area: "太原街", url: "https://gs.ctrip.com/html5/you/foods/155/15518560.html" },
+      { label: "石榴异域", name: "石榴餐厅", area: "中山路欧风街", url: "https://www.sohu.com/a/844987311_121443915" },
+      { label: "德式猪肘", name: "卡尼爷爷烤肉餐厅", area: "中山路欧风街", url: "https://cn.tripadvisor.com/Restaurant_Review-g297454-d12329847-Reviews-Carney_s_BBQ_Grill-Shenyang_Liaoning.html" },
+      { label: "收尾大饼", name: "李连贵熏肉大饼", area: "太原街 / 返程补漏", url: "https://m.dianping.com/shop/564483" }
     ],
     points: [
       { name: "太原街", lat: 41.7917407, lon: 123.3964233 },
