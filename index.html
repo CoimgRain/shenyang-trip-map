@@ -1264,17 +1264,25 @@
         return {
           paddingTopLeft: [22, 22],
           paddingBottomRight: [22, overlayHeight + 16],
-          maxZoom: 14,
-          duration: 0.65
+          maxZoom: 14
         };
       }
 
       return {
         paddingTopLeft: [50, 50],
         paddingBottomRight: [50, 50],
-        maxZoom: 14,
-        duration: 0.65
+        maxZoom: 14
       };
+    }
+
+    function focusDayBounds(dayIndex) {
+      const layer = mapLayers[dayIndex];
+      if (!layer) return;
+      window.requestAnimationFrame(() => {
+        map.stop();
+        map.invalidateSize({ pan: false });
+        map.fitBounds(layer.bounds, getFitOptions());
+      });
     }
 
     let activeDay = 0;
@@ -1382,7 +1390,7 @@
           });
         }
       });
-      map.flyToBounds(mapLayers[dayIndex].bounds, getFitOptions());
+      focusDayBounds(dayIndex);
     }
 
     function renderDayTabs() {
