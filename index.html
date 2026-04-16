@@ -116,63 +116,156 @@
       border: 2px solid rgba(255,255,255,0.92);
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
+    .panel-handle {
+      display: none;
+    }
+    .days-strip {
+      display: block;
+    }
+    @media (max-width: 820px) {
+      .layout {
+        display: block;
+        position: relative;
+        height: 100dvh;
+      }
+      #map {
+        height: 100dvh;
+      }
+      .panel {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 500;
+        max-height: 39dvh;
+        padding: 12px 14px calc(14px + env(safe-area-inset-bottom));
+        overflow-y: auto;
+        border-left: none;
+        border-top: 1px solid rgba(80, 60, 30, 0.12);
+        border-radius: 18px 18px 0 0;
+        box-shadow: 0 -8px 24px rgba(45, 32, 12, 0.14);
+        background:
+          radial-gradient(circle at top, rgba(188, 128, 58, 0.18), transparent 35%),
+          linear-gradient(180deg, rgba(251, 247, 239, 0.95) 0%, rgba(240, 231, 216, 0.96) 100%);
+        backdrop-filter: blur(10px);
+      }
+      .panel-handle {
+        display: block;
+        width: 42px;
+        height: 5px;
+        margin: 0 auto 10px;
+        border-radius: 999px;
+        background: rgba(108, 92, 71, 0.35);
+      }
+      h1 {
+        margin-bottom: 4px;
+        font-size: 22px;
+      }
+      .sub {
+        margin-bottom: 10px;
+        font-size: 13px;
+      }
+      .tip {
+        margin-bottom: 10px;
+        padding: 9px 10px;
+        font-size: 12px;
+        line-height: 1.45;
+      }
+      .days-strip {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        margin: 0 -2px;
+        padding: 2px 2px 6px;
+        scroll-snap-type: x proximity;
+      }
+      .days-strip::-webkit-scrollbar {
+        display: none;
+      }
+      .day {
+        flex: 0 0 160px;
+        min-width: 160px;
+        margin-bottom: 0;
+        scroll-snap-align: start;
+      }
+      .day-head {
+        font-size: 14px;
+      }
+      ul {
+        font-size: 12px;
+        line-height: 1.45;
+      }
+      .footer {
+        margin-top: 8px;
+        font-size: 11px;
+        line-height: 1.45;
+      }
+      .leaflet-control-attribution {
+        max-width: calc(100vw - 20px);
+        font-size: 10px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="layout">
     <div id="map"></div>
     <aside class="panel">
+      <div class="panel-handle"></div>
       <h1>沈阳 5 日路线总览</h1>
       <p class="sub">按当前沈阳 5 日计划做的点位示意图，颜色代表不同天。</p>
       <p class="tip">这张图更适合现场看区域和顺路关系，不是导航图。早市和街区点位里有少数使用的是片区示意坐标，够用来规划动线。</p>
 
-      <section class="day">
-        <div class="day-head"><span class="swatch" style="background:#d84f45"></span>Day 1</div>
-        <ul>
-          <li>中山广场</li>
-          <li>中山路</li>
-          <li>西塔美食街</li>
-        </ul>
-      </section>
+      <div class="days-strip">
+        <section class="day">
+          <div class="day-head"><span class="swatch" style="background:#d84f45"></span>Day 1</div>
+          <ul>
+            <li>中山广场</li>
+            <li>中山路</li>
+            <li>西塔美食街</li>
+          </ul>
+        </section>
 
-      <section class="day">
-        <div class="day-head"><span class="swatch" style="background:#e08a1e"></span>Day 2</div>
-        <ul>
-          <li>小河沿早市</li>
-          <li>九一八历史博物馆</li>
-          <li>沈阳故宫</li>
-          <li>中街 / 方城</li>
-          <li>老北市 / 北市场</li>
-        </ul>
-      </section>
+        <section class="day">
+          <div class="day-head"><span class="swatch" style="background:#e08a1e"></span>Day 2</div>
+          <ul>
+            <li>小河沿早市</li>
+            <li>九一八历史博物馆</li>
+            <li>沈阳故宫</li>
+            <li>中街 / 方城</li>
+            <li>老北市 / 北市场</li>
+          </ul>
+        </section>
 
-      <section class="day">
-        <div class="day-head"><span class="swatch" style="background:#2f9e62"></span>Day 3</div>
-        <ul>
-          <li>八一早市</li>
-          <li>北陵公园</li>
-          <li>北市场</li>
-          <li>皇寺路</li>
-        </ul>
-      </section>
+        <section class="day">
+          <div class="day-head"><span class="swatch" style="background:#2f9e62"></span>Day 3</div>
+          <ul>
+            <li>八一早市</li>
+            <li>北陵公园</li>
+            <li>北市场</li>
+            <li>皇寺路</li>
+          </ul>
+        </section>
 
-      <section class="day">
-        <div class="day-head"><span class="swatch" style="background:#3478c8"></span>Day 4</div>
-        <ul>
-          <li>向工早市</li>
-          <li>1905 文创园</li>
-          <li>中国工业博物馆</li>
-          <li>兴顺夜市</li>
-        </ul>
-      </section>
+        <section class="day">
+          <div class="day-head"><span class="swatch" style="background:#3478c8"></span>Day 4</div>
+          <ul>
+            <li>向工早市</li>
+            <li>1905 文创园</li>
+            <li>中国工业博物馆</li>
+            <li>兴顺夜市</li>
+          </ul>
+        </section>
 
-      <section class="day">
-        <div class="day-head"><span class="swatch" style="background:#8a53c6"></span>Day 5</div>
-        <ul>
-          <li>太原街</li>
-          <li>返程前机动补漏</li>
-        </ul>
-      </section>
+        <section class="day">
+          <div class="day-head"><span class="swatch" style="background:#8a53c6"></span>Day 5</div>
+          <ul>
+            <li>太原街</li>
+            <li>返程前机动补漏</li>
+          </ul>
+        </section>
+      </div>
 
       <div class="footer">
         底图：高德地图<br />
