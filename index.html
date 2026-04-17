@@ -1479,10 +1479,22 @@
 
     function renderDayTabs() {
       dayTabs.innerHTML = "";
+      const overviewButton = document.createElement("button");
+      overviewButton.type = "button";
+      overviewButton.className = `day-tab${mapOverviewMode ? " is-active" : ""}`;
+      overviewButton.style.setProperty("--day-color", data.days[activeDay]?.color ?? "#7b6243");
+      overviewButton.setAttribute("aria-label", "查看 Day 1 到 Day 5 的整体路线");
+      overviewButton.innerHTML = `<span class="day-tab-label">整体</span>`;
+      overviewButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        showMapOverview();
+      });
+      dayTabs.appendChild(overviewButton);
+
       data.days.forEach((day, index) => {
         const button = document.createElement("button");
         button.type = "button";
-        button.className = `day-tab${index === activeDay ? " is-active" : ""}`;
+        button.className = `day-tab${!mapOverviewMode && index === activeDay ? " is-active" : ""}`;
         button.style.setProperty("--day-color", day.color);
         button.setAttribute("aria-label", `切换到 Day ${day.order}`);
         button.innerHTML = `<span class="day-tab-label">DAY ${day.order}</span>`;
@@ -1529,7 +1541,7 @@
       }
       updateMapFocus(dayIndex);
       replayContentMotion();
-      dayTabs.children[dayIndex]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      dayTabs.children[dayIndex + 1]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     }
 
     updatePanelMetrics();
