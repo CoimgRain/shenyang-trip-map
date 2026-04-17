@@ -97,6 +97,10 @@
       filter: saturate(0.94) contrast(1.02) brightness(1.01);
     }
 
+    .mobile-map-hitarea {
+      display: none;
+    }
+
     .map-stage::after {
       content: "";
       position: absolute;
@@ -764,6 +768,20 @@
         touch-action: pan-x;
       }
 
+      .mobile-map-hitarea {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: min(72vh, 760px);
+        z-index: 3;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        margin: 0;
+      }
+
       .panel::before {
         inset: 14px 14px 10px;
       }
@@ -835,6 +853,10 @@
     }
 
     @media (max-width: 640px) {
+      .mobile-map-hitarea {
+        bottom: min(76vh, 820px);
+      }
+
       .panel {
         height: min(76vh, 820px);
       }
@@ -878,6 +900,7 @@
   <div class="app-shell">
     <section class="map-stage">
       <div id="map"></div>
+      <button class="mobile-map-hitarea" id="mobile-map-hitarea" type="button" aria-label="显示全部路线并收起卡片"></button>
     </section>
 
     <aside class="panel" aria-label="行程详情面板">
@@ -972,6 +995,7 @@
       zoomControl: false,
       attributionControl: true
     }).setView([41.8035, 123.4145], 12);
+    window.__tripMap = map;
 
     L.control.zoom({ position: "bottomright" }).addTo(map);
 
@@ -988,6 +1012,7 @@
     const panel = document.querySelector(".panel");
     const panelHandle = document.querySelector(".panel-handle");
     const dayTabs = $("day-tabs");
+    const mobileMapHitarea = $("mobile-map-hitarea");
     const dayContentInner = document.querySelector(".day-content-inner");
     const lightbox = $("image-lightbox");
     const lightboxImage = $("lightbox-image");
@@ -1156,8 +1181,40 @@
       }
     }
 
+    function showMapOverview() {
+      if (panelState.dragging) return;
+      mapOverviewMode = true;
+      if (isMobilePanelMode()) {
+        setPanelOffset(panelState.collapsedOffset, false);
+      }
+      renderDayTabs();
+      updateMapFocus(activeDay);
+    }
+
+    function handleDayTabSelect(index) {
+      const wasOverview = mapOverviewMode;
+      const wasCollapsed = panelState.collapsed;
+      const isSwitchingDay = mapOverviewMode || index !== activeDay;
+
+      if (isSwitchingDay) {
+        setActiveDay(index, { preserveCollapsed: wasOverview ? true : wasCollapsed });
+        if (wasOverview && isMobilePanelMode()) {
+          window.setTimeout(() => {
+            setPanelOffset(panelState.collapsedOffset, false);
+            updateMapFocus(index);
+          }, 0);
+        }
+        return;
+      }
+
+      snapPanel(!panelState.collapsed, false);
+    }
+
     function canDragPanel(target) {
       if (!isMobilePanelMode()) return false;
+      if (target.closest(".day-tab, .day-tabs, .chip, .gallery-card, a, button")) {
+        return Boolean(target.closest(".panel-handle"));
+      }
       if (panelState.collapsed) return true;
       if (target.closest(".panel-handle") || target.closest(".panel-top") || target.closest(".day-tabs")) {
         return true;
@@ -1197,14 +1254,7 @@
     panel.addEventListener("pointerup", endPanelDrag);
     panel.addEventListener("pointercancel", endPanelDrag);
     panelHandle.addEventListener("click", () => snapPanel(!panelState.collapsed));
-    map.on("click", () => {
-      if (panelState.dragging) return;
-      mapOverviewMode = true;
-      updateMapFocus(activeDay);
-      if (isMobilePanelMode() && !panelState.collapsed) {
-        snapPanel(true);
-      }
-    });
+    mobileMapHitarea.addEventListener("click", showMapOverview);
     panel.addEventListener("click", (event) => {
       if (!isMobilePanelMode() || !panelState.collapsed || panelState.dragging) return;
       if (event.target.closest(".day-tab")) return;
@@ -1267,74 +1317,70 @@
 
     function getFitOptions() {
       if (isMobilePanelMode()) {
-        const overlayHeight = Math.max(getPanelPeekHeight(), panel.offsetHeight - panelState.offset);
+        const visiblePanelHeight = Math.max(0, panel.offsetHeight - panelState.offset);
         return {
-          paddingTopLeft: [22, 22],
-          paddingBottomRight: [22, overlayHeight + 16],
-          maxZoom: 14
+          paddingTopLeft: [16, 16],
+          paddingBottomRight: [16, Math.max(144, Math.round(visiblePanelHeight + 24))],
+          maxZoom: mapOverviewMode ? 13 : 16
         };
       }
 
       return {
-        paddingTopLeft: [50, 50],
-        paddingBottomRight: [50, 50],
-        maxZoom: 14
+        paddingTopLeft: [28, 28],
+        paddingBottomRight: [28, 28],
+        maxZoom: 16
       };
     }
 
     let focusRetryTimers = [];
+    let focusRequestId = 0;
 
     function clearFocusRetryTimers() {
       focusRetryTimers.forEach((timer) => window.clearTimeout(timer));
       focusRetryTimers = [];
     }
 
-    function focusAllBounds() {
+    function queueBoundsFocus(bounds) {
       clearFocusRetryTimers();
+      focusRequestId += 1;
+      const requestId = focusRequestId;
 
-      const bounds = L.latLngBounds(allBounds);
-      const runFocus = () => {
+      const animateFocus = () => {
+        if (requestId !== focusRequestId) return;
         map.stop();
         map.invalidateSize({ pan: false });
         map.flyToBounds(bounds, {
           ...getFitOptions(),
           animate: true,
-          duration: 0.45
+          duration: 0.58
         });
       };
 
-      window.requestAnimationFrame(() => {
-        runFocus();
-        [90, 220, 420].forEach((delay) => {
-          const timer = window.setTimeout(runFocus, delay);
-          focusRetryTimers.push(timer);
+      const settleFocus = () => {
+        if (requestId !== focusRequestId) return;
+        map.stop();
+        map.invalidateSize({ pan: false });
+        map.fitBounds(bounds, {
+          ...getFitOptions(),
+          animate: false
         });
+      };
+
+      animateFocus();
+      [180, 360, 720].forEach((delay) => {
+        const timer = window.setTimeout(settleFocus, delay);
+        focusRetryTimers.push(timer);
       });
+    }
+
+    function focusAllBounds() {
+      queueBoundsFocus(L.latLngBounds(allBounds));
     }
 
     function focusDayBounds(dayIndex) {
       const layer = mapLayers[dayIndex];
       if (!layer) return;
-
-      clearFocusRetryTimers();
-
-      const runFocus = () => {
-        map.stop();
-        map.invalidateSize({ pan: false });
-        map.flyToBounds(layer.bounds, {
-          ...getFitOptions(),
-          animate: true,
-          duration: 0.45
-        });
-      };
-
-      window.requestAnimationFrame(() => {
-        runFocus();
-        [90, 220, 420].forEach((delay) => {
-          const timer = window.setTimeout(runFocus, delay);
-          focusRetryTimers.push(timer);
-        });
-      });
+      queueBoundsFocus(layer.bounds);
     }
 
     let activeDay = 0;
@@ -1439,7 +1485,6 @@
           layer.polyline.bringToBack();
           layer.markers.forEach((marker) => {
             marker.setOpacity(1);
-            marker.bringToFront();
           });
         }
       });
@@ -1460,24 +1505,16 @@
         button.style.setProperty("--day-color", day.color);
         button.setAttribute("aria-label", `切换到 Day ${day.order}`);
         button.innerHTML = `<span class="day-tab-label">DAY ${day.order}</span>`;
-        button.addEventListener("click", () => {
-          mapOverviewMode = false;
-          if (panelState.collapsed) {
-            if (index === activeDay) {
-              updateMapFocus(index);
-              snapPanel(false);
-            } else {
-              setActiveDay(index);
-            }
-            return;
-          }
-          setActiveDay(index);
+        button.addEventListener("click", (event) => {
+          event.stopPropagation();
+          handleDayTabSelect(index);
         });
         dayTabs.appendChild(button);
       });
     }
 
-    function setActiveDay(dayIndex) {
+    function setActiveDay(dayIndex, options = {}) {
+      const preserveCollapsed = options.preserveCollapsed ?? panelState.collapsed;
       activeDay = dayIndex;
       mapOverviewMode = false;
       const day = data.days[dayIndex];
@@ -1506,6 +1543,9 @@
       renderGallery(day);
       renderDayTabs();
       updatePanelMetrics();
+      if (isMobilePanelMode()) {
+        setPanelOffset(preserveCollapsed ? panelState.collapsedOffset : 0, false);
+      }
       updateMapFocus(dayIndex);
       replayContentMotion();
       dayTabs.children[dayIndex]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
