@@ -114,7 +114,7 @@ const dayMeta = [
       { name: "八一早市", lat: 41.8022, lon: 123.4088 },
       { name: "北陵公园", lat: 41.8485259, lon: 123.4246943 },
       { name: "北市场", lat: 41.8067975, lon: 123.4186405 },
-      { name: "皇寺路", lat: 41.8072571, lon: 123.4157889 }
+      { name: "皇寺路", lat: 41.8049, lon: 123.4116 }
     ],
     extraPhotos: [
       "系统工具/附件/shenyang-laobeishi-photo.webp",

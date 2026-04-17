@@ -1198,12 +1198,6 @@
 
       if (isSwitchingDay) {
         setActiveDay(index, { preserveCollapsed: wasOverview ? true : wasCollapsed });
-        if (wasOverview && isMobilePanelMode()) {
-          window.setTimeout(() => {
-            setPanelOffset(panelState.collapsedOffset, false);
-            updateMapFocus(index);
-          }, 0);
-        }
         return;
       }
 
@@ -1269,6 +1263,15 @@
     }
 
     function tooltipOffset(dayIndex, pointIndex) {
+      const customOffsets = {
+        "2-2": [28, -10],
+        "2-3": [-56, 26]
+      };
+      const customKey = `${dayIndex}-${pointIndex}`;
+      if (customOffsets[customKey]) {
+        return customOffsets[customKey];
+      }
+
       const offsets = [
         [0, -14], [0, 20], [22, 0], [-22, 0], [16, -18], [-18, 18]
       ];
@@ -1300,9 +1303,11 @@
 
       const polyline = L.polyline(latlngs.map((item) => item.latlng), {
         color: day.color,
-        weight: 5,
+        weight: 4,
         opacity: 0.92,
-        smoothFactor: 1,
+        smoothFactor: 0,
+        lineCap: "round",
+        lineJoin: "round",
         dashArray: day.dashed ? "10 8" : null
       });
 
@@ -1332,45 +1337,21 @@
       };
     }
 
-    let focusRetryTimers = [];
     let focusRequestId = 0;
 
-    function clearFocusRetryTimers() {
-      focusRetryTimers.forEach((timer) => window.clearTimeout(timer));
-      focusRetryTimers = [];
-    }
-
     function queueBoundsFocus(bounds) {
-      clearFocusRetryTimers();
       focusRequestId += 1;
       const requestId = focusRequestId;
-
-      const animateFocus = () => {
+      map.stop();
+      map.invalidateSize({ pan: false });
+      window.setTimeout(() => {
         if (requestId !== focusRequestId) return;
-        map.stop();
-        map.invalidateSize({ pan: false });
         map.flyToBounds(bounds, {
           ...getFitOptions(),
           animate: true,
-          duration: 0.58
+          duration: 0.42
         });
-      };
-
-      const settleFocus = () => {
-        if (requestId !== focusRequestId) return;
-        map.stop();
-        map.invalidateSize({ pan: false });
-        map.fitBounds(bounds, {
-          ...getFitOptions(),
-          animate: false
-        });
-      };
-
-      animateFocus();
-      [180, 360, 720].forEach((delay) => {
-        const timer = window.setTimeout(settleFocus, delay);
-        focusRetryTimers.push(timer);
-      });
+      }, 24);
     }
 
     function focusAllBounds() {
@@ -1481,7 +1462,7 @@
         });
 
         if (isActive) {
-          layer.polyline.setStyle({ weight: 5, opacity: 0.92 });
+          layer.polyline.setStyle({ weight: 4, opacity: 0.92 });
           layer.polyline.bringToBack();
           layer.markers.forEach((marker) => {
             marker.setOpacity(1);
